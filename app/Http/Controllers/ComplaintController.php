@@ -33,7 +33,7 @@ class ComplaintController extends Controller
 
     public function store(Request $request)
     {
-    
+
         $userId = null;
 
         $validatedData = $request->validate([
@@ -53,17 +53,18 @@ class ComplaintController extends Controller
         if (Auth::check()) {
             $userId = Auth::id();
         } else {
+
             $validatedData = array_merge($validatedData, $request->validate([
                 'anonymous' => 'required|boolean',
-                'first_name' => 'required_if:anonymous,1|string|max:255',
-                'last_name' => 'required_if:anonymous,1|string|max:255',
-                'phone' => 'required_if:anonymous,1|string|max:15',
-                'email' => 'required_if:anonymous,1|email|unique:users,email',
-                'password' => 'required_if:anonymous,1|string|min:8',
-                'address' => 'required_if:anonymous,1|string|max:255',
-                'person_city' => 'required_if:anonymous,1|string|max:255',
-                'person_state' => 'required_if:anonymous,1|string|max:255',
-                'zip' => 'required_if:anonymous,1|string|max:10',
+                'first_name' => 'required_if:anonymous,1|string|max:255|nullable',
+                'last_name' => 'required_if:anonymous,1|string|max:255|nullable',
+                'phone' => 'required_if:anonymous,1|string|max:15|nullable',
+                'email' => 'required_if:anonymous,1|email|nullable|unique:users,email',
+                'password' => 'required_if:anonymous,1|string|min:8|nullable',
+                'address' => 'required_if:anonymous,1|string|max:255|nullable',
+                'person_city' => 'required_if:anonymous,1|string|max:255|nullable',
+                'person_state' => 'required_if:anonymous,1|string|max:255|nullable',
+                'zip' => 'required_if:anonymous,1|string|max:10|nullable',
             ]));
 
             if ($validatedData['anonymous'] == '1') {
