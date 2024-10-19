@@ -27,7 +27,13 @@
                 <div class="col-md-6">
                     <h6 class="mt-4">Accused Information</h6>
                     <p class="card-text"><strong>Name:</strong> {{ $complaint->officer->name ?? '' }}</p>
-                    <p class="card-text"><strong>Location:</strong> {{ $complaint->officer->division ?? '' }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ $complaint->officer->email ?? '' }}</p>
+                    <p class="card-text"><strong>Phone:</strong> {{ $complaint->officer->phone ?? '' }}</p>
+                    <p class="card-text"><strong>Address:</strong> {{ $complaint->officer->address ?? '' }}</p>
+                    <p class="card-text"><strong>City:</strong> {{ $complaint->officer->city ?? '' }}</p>
+                    <p class="card-text"><strong>State:</strong> {{ $complaint->officer->state ?? '' }}</p>
+                    <p class="card-text"><strong>Zip:</strong> {{ $complaint->officer->zip ?? '' }}</p>
+                  
                 </div>
             </div>
         </div>

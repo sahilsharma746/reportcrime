@@ -10,7 +10,7 @@ class Officer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'complaint_id', 'name', 'rank', 'division', 'badge_number',
+        'complaint_id', 'name', 'rank', 'division', 'badge_number','email','phone','address','city','state','zip'
     ];
 
     public function complaint()

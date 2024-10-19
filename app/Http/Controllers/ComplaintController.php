@@ -6,12 +6,16 @@ use App\Models\Complaint;
 use App\Models\Officer;
 use App\Models\State;
 use App\Models\User;
+use App\Models\City;
 use App\Notifications\NewComplaintSubmitted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+
+
+
 
 class ComplaintController extends Controller
 {
@@ -29,6 +33,7 @@ class ComplaintController extends Controller
 
     public function store(Request $request)
     {
+    
         $userId = null;
 
         $validatedData = $request->validate([
@@ -42,7 +47,7 @@ class ComplaintController extends Controller
             'officer_badge_number' => 'nullable|string|max:255',
             'attachments.*' => 'file|mimes:jpg,jpeg,png,gif,mp4,pdf,doc,docx|max:10240',
             'state' => 'required|exists:states,id',
-            'city' => 'required|exists:cities,id',
+            'city' => 'required',
         ]);
 
         if (Auth::check()) {
@@ -78,6 +83,21 @@ class ComplaintController extends Controller
             }
         }
 
+        $city_name = $request->city;
+        $city_slug  = strtolower(str_replace(' ', '-', $city_name));
+        $exist = City::where('slug', $city_slug)->where('state_id',$request->state)->first();
+
+        if ($exist) {
+            $city_id = $exist->id;
+        } else {
+            $new_city = City::create([
+                'name' => $city_name,
+                'state_id' => $request->state,
+                'slug' => $city_slug
+            ]);
+            $city_id = $new_city->id;
+        }
+
         $complaint = Complaint::create([
             'user_id' => $userId,
             'complaint_number' => 'C-' . Str::random(8),
@@ -85,13 +105,19 @@ class ComplaintController extends Controller
             'incident_date' => $validatedData['incident_date'],
             'complaint_type' => $validatedData['complaint_type'],
             'status' => 'pending',
-            'city_id' => $validatedData['city'],
+            'city_id' => $city_id, 
         ]);
 
         Officer::create([
             'complaint_id' => $complaint->id,
             'name' => $validatedData['officer_name'],
             'division' => $validatedData['officer_division'],
+            'email'=>$request->accused_email,
+            'phone'=>$request->accused_phone_number,
+            'address'=>$request->accused_address,
+            'city'=>$request->accused_city,
+            'state'=>$request->accused_state,
+            'zip'=>$request->accused_zip,
         ]);
 
         if ($request->hasFile('attachments')) {
