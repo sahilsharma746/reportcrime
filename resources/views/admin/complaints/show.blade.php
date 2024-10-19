@@ -24,10 +24,10 @@
                             <p class="card-text"><strong>Closed Date:</strong> {{ $complaint->updated_at }}</p>
                         @endif
                         <p class="card-text"><strong>Created By:</strong> {{ $complaint->user->name ?? 'Anonymous' }}</p>
-                        <p class="card-text"><strong>Address:</strong> {{ $complaint->user->address ?? '' }}</p>
+                        <!-- <p class="card-text"><strong>Address:</strong> {{ $complaint->user->address ?? '' }}</p> -->
                         <p class="card-text"><strong>City:</strong> {{ $complaint->user->city ?? '' }}</p>
                         <p class="card-text"><strong>State:</strong> {{ $complaint->user->state ?? '' }}</p>
-                        <p class="card-text"><strong>Zip:</strong> {{ $complaint->user->zip ?? '' }}</p>
+                        <!-- <p class="card-text"><strong>Zip:</strong> {{ $complaint->user->zip ?? '' }}</p> -->
                         @if(!is_null($complaint->assignedTo))
                             <p class="card-text"><strong>Assigned to:</strong> {{ $complaint->assignedTo->name }}</p>
                         @endif
@@ -40,7 +40,12 @@
                     <div class="col-md-6">
                         <h6 class="mt-4">Accused Information</h6>
                         <p class="card-text"><strong>Name:</strong> {{ $complaint->officer->name ?? '' }}</p>
-                        <p class="card-text"><strong>Location:</strong> {{ $complaint->officer->division ?? '' }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ $complaint->officer->email ?? '' }}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ $complaint->officer->phone ?? '' }}</p>
+                        <p class="card-text"><strong>Address:</strong> {{ $complaint->officer->address ?? '' }}</p>
+                        <p class="card-text"><strong>City:</strong> {{ $complaint->officer->city ?? '' }}</p>
+                        <p class="card-text"><strong>State:</strong> {{ $complaint->officer->state ?? '' }}</p>
+                        <p class="card-text"><strong>Zip:</strong> {{ $complaint->officer->zip ?? '' }}</p>
                     </div>
                 </div>
 

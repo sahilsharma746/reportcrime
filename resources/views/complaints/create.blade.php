@@ -179,14 +179,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <!-- <div class="mb-3">
+                        <div style="display:none" class="mb-3">
                             <label for="officer_division" class="form-label">Accused Location</label>
                             <input type="text" class="form-control" id="officer_division" name="officer_division">
-                        </div> -->
+                        </div>
                         <div class="mb-3">
                             <label for="officer_division" class="form-label">Email</label>
-                            <input type="text" class="form-control @error('officer_division') is-invalid @enderror" id="officer_division" name="officer_division" value="{{ old('officer_division') }}">
-                            @error('officer_division')
+                            <input type="text" class="form-control @error('accused_email') is-invalid @enderror" id="accused_email" name="accused_email" value="{{ old('accused_email') }}">
+                            @error('accused_email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
